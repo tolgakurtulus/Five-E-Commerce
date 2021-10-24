@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { auth } from "../../firebase/firebase.utils";
-import { ReactComponent as Logo} from "../../assets/crown.svg";
+import { ReactComponent as Logo} from "../../assets/fivecommerce.svg";
 import { connect } from "react-redux";
 import "./header.scss";
 import CartIcon from "../cartIcon/cartIcon";
