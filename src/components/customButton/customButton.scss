@@ -2,10 +2,7 @@
   min-width: 165px;
   width: auto;
   height: 50px;
-  letter-spacing: 0.5px;
-  line-height: 50px;
-  padding: 0 35px 0 35px;
-  font-size: 13px;
+  font-size: 12px;
   background-color: black;
   color: white;
   text-transform: uppercase;
@@ -15,12 +12,12 @@
   cursor: pointer;
   display: flex;
   justify-content: center;
+  align-items: center;
 
   &:hover {
     background-color: white;
     color: black;
     border: 1px solid black;
-    font-size: 12px;
   }
 
   &.google-sign-in {
@@ -30,7 +27,6 @@
     &:hover {
       background-color: #357ae8;
       border: none;
-      font-size: 12px;
     }
   }
 
@@ -43,7 +39,6 @@
       background-color: black;
       color: white;
       border: none;
-      font-size: 12px;
     }
   }
 }
