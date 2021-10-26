@@ -1,33 +1,34 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { auth } from "../../firebase/firebase.utils";
-import { ReactComponent as Logo} from "../../assets/fivecommerce.svg";
-import { connect } from "react-redux";
-import "./header.scss";
+import { ReactComponent as Logo } from "../../assets/fivecommerce.svg";
+import { useSelector } from "react-redux";
 import CartIcon from "../cartIcon/cartIcon";
 import CartDropDown from "../cartDropDown/cartDropDown";
-import { createStructuredSelector } from "reselect";
-import { selectCartHidden } from "../../redux/cart/cart.selectors";
-import { selectCurrentUser } from "../../redux/user/user.selector";
+import "./header.scss";
 
-const Header = ({ currentUser, hidden }) => (
-    <div className='header'>
-      <Link className='logo-container' to='/'>
-        <Logo className='logo' />
+const Header = () => {
+  const hidden = useSelector((state) => state.cart.hidden);
+  const currentUser = useSelector((state) => state.user.currentUser);
+
+  return (
+    <div className="header">
+      <Link className="logo-container" to="/">
+        <Logo className="logo" />
       </Link>
-      <div className='options'>
-        <Link className='option' to='/shop'>
+      <div className="options">
+        <Link className="option" to="/shop">
           SHOP
         </Link>
         {/* <Link className='option' to='/shop'>
           CONTACT
         </Link> */}
         {currentUser ? (
-          <div className='option' onClick={() => auth.signOut()}>
+          <div className="option" onClick={() => auth.signOut()}>
             SIGN OUT
           </div>
         ) : (
-          <Link className='option' to='/sign'>
+          <Link className="option" to="/sign">
             SIGN IN
           </Link>
         )}
@@ -36,11 +37,6 @@ const Header = ({ currentUser, hidden }) => (
       {hidden ? null : <CartDropDown />}
     </div>
   );
-  
-  const mapStateToProps = createStructuredSelector({
-    currentUser: selectCurrentUser,
-    hidden: selectCartHidden
-  });
-  
-  export default connect(mapStateToProps)(Header);
-  
+};
+
+export default Header;
