@@ -7,7 +7,7 @@ import {
   firestore,
   convertCollectionsSnapshotToMap,
 } from "../../firebase/firebase.utils";
-import { updateCollections } from "../../redux/shop/shop.actions.js";
+import { fetchCollectionsStartAsync } from "../../redux/shop/shop.actions.js";
 import WithSpinner from "../../components/withSpinner/withSpinner.jsx";
 
 const Shop = ({ match }) => {
@@ -17,12 +17,15 @@ const Shop = ({ match }) => {
   const CollectionsPageWithSpinner = WithSpinner(CollectionsPage);
 
   useEffect(() => {
-    const collectionRef = firestore.collection("collections");
-    collectionRef.onSnapshot(async snapShot => {
-     const collectionsMap = convertCollectionsSnapshotToMap(snapShot);
-     dispatch(updateCollections(collectionsMap));
-     setLoading(false);
-    })
+    // const collectionRef = firestore.collection("collections");
+    // collectionRef.onSnapshot(async snapShot => {
+    //  const collectionsMap = convertCollectionsSnapshotToMap(snapShot);
+    //  dispatch(fetchCollectionsStartAsync(collectionsMap));
+    //  setLoading(false);
+    // })
+
+     dispatch(fetchCollectionsStartAsync());
+
 
     // fetch(
     //   "https://firestore.googleapis.com/v1/projects/ecommerce-db-3015c/databases/(default)/documents/collections"
@@ -34,19 +37,15 @@ const Shop = ({ match }) => {
   }, []);
 
   return (
-    <div className="shop-page">
+    <div className='shop-page'>
       <Route
         exact
         path={`${match.path}`}
-        render={(props) => (
-          <CollectionsOverviewWithSpinner isLoading={loading} {...props} />
-        )}
+        component={CollectionsOverview}
       />
       <Route
         path={`${match.path}/:collectionId`}
-        render={(props) => (
-          <CollectionsPageWithSpinner isLoading={loading} {...props} />
-        )}
+        component={CollectionsPage}
       />
     </div>
   );
